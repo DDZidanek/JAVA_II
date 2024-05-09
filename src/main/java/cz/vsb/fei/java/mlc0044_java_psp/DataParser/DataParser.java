@@ -12,12 +12,13 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.nio.charset.Charset;
 
 @Service
 public class DataParser {
@@ -30,7 +31,7 @@ public class DataParser {
     private OrganRepository organyRepository;
 
     public void parseOsoby(String filePath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath), Charset.forName("Windows-1250"))) {
             String line;
             List<Osoba> osoby = new ArrayList<>();
             reader.readLine();
@@ -67,6 +68,7 @@ public class DataParser {
             e.printStackTrace();
         }
     }
+
     public void parsePoslanci(String filePath)
     {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -140,7 +142,7 @@ public class DataParser {
         }
     }
     public void parseOrgany(String filePath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath), Charset.forName("Windows-1250"))) {
             String line;
             List<Organy> organy = new ArrayList<>();
             reader.readLine();
